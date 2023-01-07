@@ -20,7 +20,7 @@ mongoose
     // console.log("Connected to data Base");
     // console.log("Port", port);
     app.listen(port, () => {
-      console.log("Connected to the port  ", port);
+      console.log(`Connected to port:${port}`);
     });
   })
   .catch((err) => {
