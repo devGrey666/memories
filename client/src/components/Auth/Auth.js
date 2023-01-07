@@ -7,12 +7,13 @@ import {
   Typography,
   Grid,
   Avatar,
-} from "@material-ui/core";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+} from "@mui/material";
+
 import Input from "./Input";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signUp, signIn } from "../../actions/auth.js";
+import { LockOutlined } from "@mui/icons-material";
 const Auth = () => {
   const initialState = {
     firstName: "",
@@ -25,7 +26,7 @@ const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState(initialState);
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,9 +34,9 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isSignup) {
-      dispatch(signUp(formData, history));
+      dispatch(signUp(formData, navigate));
     } else {
-      dispatch(signIn(formData, history));
+      dispatch(signIn(formData, navigate));
     }
     setFormData(initialState);
     setShowPassword(false);
@@ -51,7 +52,7 @@ const Auth = () => {
     <Container component="main" maxWidth="xs">
       <Paper className={classes.paper} elevation={3}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon></LockOutlinedIcon>
+          <LockOutlined />
         </Avatar>
         <Typography variant="h5">{isSignup ? "Sign Up" : "Sign In"}</Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
@@ -104,7 +105,7 @@ const Auth = () => {
           <Button
             type="submit"
             variant="contained"
-            fullWidth
+
             color="primary"
             className={classes.submit}
           >

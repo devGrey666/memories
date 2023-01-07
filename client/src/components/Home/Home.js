@@ -1,27 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getPosts, getPostsBySearch } from "../../actions/posts.js";
-import ChipInput from "material-ui-chip-input";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getPostsBySearch } from "../../actions/posts.js";
 import {
   Grid,
   Grow,
   Paper,
   AppBar,
   TextField,
-  Button,
-} from "@material-ui/core";
+  Button, Chip,
+} from "@mui/material";
 import Posts from "../Posts/Posts.js";
 import Form from "../Form/post.js";
 import useStyles from "./styles.js";
 import Paginate from "../Pagination/pagination.js";
-import { useLocation, useHistory, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
 function Home() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const query = useQuery();
   const page = query.get("page") || 1;
 
@@ -50,11 +49,11 @@ function Home() {
   const searchPost = () => {
     if (search.trim() || tags) {
       dispatch(getPostsBySearch({ search: search, tags: tags.join(",") }));
-      history.push(
+      navigate(
         `posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
       );
     } else {
-      history.push("/");
+      navigate("/");
     }
   };
   return (
@@ -80,18 +79,18 @@ function Home() {
               label="search Memories"
               value={search}
               variant="outlined"
-              onKeyPress={handleKeyPress}
-              fullWidth
+              onKeyDown={handleKeyPress}
+
               onChange={(event) => setSearch(event.target.value)}
             />
-            <ChipInput
+            <Chip
               style={{
                 margin: "10px 0px",
               }}
               onDelete={handleDelete}
               onAdd={handleAdd}
               label="Search Tags"
-              fullWidth
+
               value={tags}
               variant="outlined"
             />

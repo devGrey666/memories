@@ -1,7 +1,6 @@
 import React from "react";
-import { Grid, TextField, InputAdornment, IconButton } from "@material-ui/core";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { Grid, TextField, InputAdornment, IconButton } from "@mui/material";
+import {Visibility,VisibilityOff } from "@mui/icons-material";
 const Input = ({
   half,
   type,
@@ -20,7 +19,7 @@ const Input = ({
         autoFocus={autoFocus}
         onChange={handleChange}
         variant="outlined"
-        fullWidth
+
         InputProps={
           name === "password"
             ? {

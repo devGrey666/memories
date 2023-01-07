@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useStyles from "./styles";
-import { AppBar, Typography, Button, Avatar } from "@material-ui/core";
+import { AppBar, Typography, Button, Avatar } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import memoriesLogo from "../../images/memories-Logo.png";
 import memoriesText from "../../images/memories-Text.png";
 import decode from "jwt-decode";
@@ -10,11 +10,11 @@ const NavBar = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const logOut = () => {
     dispatch({ type: "LOGOUT" });
-    history.push("/");
+    navigate("/");
     console.log("Log Out");
     setUser(null);
   };

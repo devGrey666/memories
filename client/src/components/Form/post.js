@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Paper, TextField, Button, Typography } from "@material-ui/core";
+import { Paper, TextField, Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost, updatePost } from "../../actions/posts";
 import FileBase from "react-file-base64";
@@ -81,7 +81,7 @@ const Post = ({ currentId, setCurrentId }) => {
             label="Title"
             name="title"
             variant="outlined"
-            fullWidth
+
             onChange={handleChange}
             value={postData.title}
             InputLabelProps={{ shrink: true }}
@@ -90,7 +90,7 @@ const Post = ({ currentId, setCurrentId }) => {
             label="Message"
             name="message"
             variant="outlined"
-            fullWidth
+
             onChange={handleChange}
             value={postData.message}
             InputLabelProps={{ shrink: true }}
@@ -100,7 +100,7 @@ const Post = ({ currentId, setCurrentId }) => {
             placeholder="Tags(comma Separated)"
             name="tags"
             variant="outlined"
-            fullWidth
+
             onChange={handleChange}
             value={postData.tags}
             InputLabelProps={{ shrink: true }}
@@ -120,7 +120,7 @@ const Post = ({ currentId, setCurrentId }) => {
             color="primary"
             size="large"
             className={classes.buttonSubmit}
-            fullWidth
+
           >
             Submit
           </Button>
@@ -128,7 +128,7 @@ const Post = ({ currentId, setCurrentId }) => {
             variant="contained"
             color="secondary"
             size="small"
-            fullWidth
+
             onClick={clear}
           >
             Clear
