@@ -1,16 +1,15 @@
 const express = require("express")
 const cors =require("cors")
 const mongoose = require("mongoose")
+const morgan = require("morgan")
 require("dotenv").config()
 
 const { PostRouter } = require("./routes/posts")
 const { AuthRouter } = require("./routes/users")
 
-
-
-
 const app = express();
 
+app.use(morgan("combined"))
 app.use(cors());
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.json({ extended: true, limit: "30mb" }));
