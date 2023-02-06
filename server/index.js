@@ -3,7 +3,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import PostRouter from "./routes/posts.js";
 import UserRouter from "./routes/users.js";
+
 const app = express();
+
 app.use(cors());
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.json({ extended: true, limit: "30mb" }));
@@ -19,19 +21,20 @@ mongoose
   .then((result) => {
     // console.log("Connected to data Base");
     // console.log("Port", port);
+    console.log(result)
     app.listen(port, () => {
       console.log(`Connected to port:${port}`);
     });
   })
   .catch((err) => {
-    console.log("Error Occured");
+    console.log("Error Occurred",err);
   });
 
 app.use("/posts", PostRouter);
 app.use("/users", UserRouter);
 
 app.use((err, req, res, next) => {
-  console.log(err.stack);
+  console.log(err.xhr);
   next(err);
 });
 app.use((err, req, res, next) => {
