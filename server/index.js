@@ -1,8 +1,13 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import PostRouter from "./routes/posts.js";
-import UserRouter from "./routes/users.js";
+const express = require("express")
+const cors =require("cors")
+const mongoose = require("mongoose")
+require("dotenv").config()
+
+const { PostRouter } = require("./routes/posts")
+const { AuthRouter } = require("./routes/users")
+
+
+
 
 const app = express();
 
@@ -11,32 +16,31 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.json({ extended: true, limit: "30mb" }));
 
 const url = "mongodb://localhost:27017/Blog";
-const port = process.env.PORT || 5000;
-mongoose
-  .connect(url, {
+const port = process.env.PORT ?? 8080
+
+// uses mongoose to connect to mongodb
+mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-  })
-  .then((result) => {
-    // console.log("Connected to data Base");
-    // console.log("Port", port);
-    console.log(result)
-    app.listen(port, () => {
+  }).then(() => {
+    // console.log(result)
+    app.listen(port , () => {
       console.log(`Connected to port:${port}`);
     });
-  })
-  .catch((err) => {
+  }).catch((err) => {
     console.log("Error Occurred",err);
   });
 
+
 app.use("/posts", PostRouter);
-app.use("/users", UserRouter);
+app.use("/users", AuthRouter);
 
 app.use((err, req, res, next) => {
   console.log(err.xhr);
   next(err);
 });
+
 app.use((err, req, res, next) => {
   if (req.xhr) {
     res.status(500).json({ message: "Internal Server error", error: err });

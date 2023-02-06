@@ -1,7 +1,7 @@
-import User from "../models/users.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-export const signIn = async (req, res) => {
+const User = require("../models/users.js");
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const signIn = async (req, res) => {
   let isCorrectPassword;
   const { email, password } = req.body;
   // console.log(email, password);
@@ -28,7 +28,7 @@ export const signIn = async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 };
-export const signUp = async (req, res) => {
+const signUp = async (req, res) => {
   const { email, password } = req.body;
   try {
     const existingUser = await User.findOne({ email });
@@ -55,3 +55,9 @@ export const signUp = async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 };
+
+
+module.exports = {
+  signIn,
+  signUp
+}

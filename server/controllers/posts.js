@@ -1,6 +1,6 @@
-import Post from "../models/posts.js";
-import mongoose from "mongoose";
-export const getPosts = async (req, res) => {
+const Post = require("../models/posts")
+const mongoose = require("mongoose")
+const getPosts = async (req, res) => {
   console.log("Page value is ", req.query.page);
   const page = Number(req.query.page);
 
@@ -25,7 +25,7 @@ export const getPosts = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-export const createPost = async (req, res) => {
+const createPost = async (req, res) => {
   const post = req.body;
   post.tags = post.tags.split(",");
 
@@ -37,7 +37,7 @@ export const createPost = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
-export const updatePost = async (req, res) => {
+const updatePost = async (req, res) => {
   const post = req.body;
 
   // post.tags = post.tags.split(",");
@@ -58,7 +58,7 @@ export const updatePost = async (req, res) => {
   }
 };
 
-export const deletePost = async (req, res) => {
+const deletePost = async (req, res) => {
   const { id: _id } = req.params;
   const valid = !mongoose.Types.ObjectId.isValid(_id);
 
@@ -74,7 +74,7 @@ export const deletePost = async (req, res) => {
     }
   }
 };
-export const likePost = async (req, res) => {
+const likePost = async (req, res) => {
   const { id } = req.params;
   if (!req.userId)
     res.status(400).json({ message: "Bad Credentials Not Authenticated" });
@@ -96,7 +96,7 @@ export const likePost = async (req, res) => {
     }
   }
 };
-export const getPostsBySearch = async (req, res) => {
+const getPostsBySearch = async (req, res) => {
   console.log(req.query);
   const { searchQuery, tags } = req.query;
   try {
@@ -109,3 +109,13 @@ export const getPostsBySearch = async (req, res) => {
     res.status(404).json({ message: "Not Found" });
   }
 };
+
+
+module.exports = {
+  getPostsBySearch,
+  likePost,
+  deletePost,
+  createPost,
+  updatePost,
+  getPosts
+}
