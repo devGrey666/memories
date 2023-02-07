@@ -44,29 +44,27 @@ const signUp = async (req, res) => {
     }
 
     // check if password matches or not
-    if (password !== req.body.confirmPassword) {
+    if (password !== confirmPassword) {
       return res.status(400).send({ message: "Passwords does not match" });
     }
 
     // hashing password
-    const hashedPassword = await bcrypt.hash(password, process.env.HASH_SALT_ROUNDS ?? 20);
+    const hashedPassword = await bcrypt.hash(password, parseInt(process.env.HASH_SALT_ROUNDS));
 
     // create user document
     const user = new User({
-        name: `${req.body.firstName} ${req.body.lastName}`,
+        name: `${firstName} ${lastName}`,
         password: hashedPassword,
-        email: req.body.email,
+        email: email,
       });
 
     const result = await user.save();
 
-    console.log(result ?? "No result found")
-
-    const token = jwt.sign({ id: result._id, email: result.email }, process.env.TOKEN_KEY, {
+    const token = jwt.sign({ id: result._id, email: email }, process.env.TOKEN_KEY, {
       expiresIn: "1h",
     });
 
-    result && res.json({ result: result, token });
+    result && res.json({ result: {id: result._id,name:result.name,email:result.email}, token });
 
   } catch (error) {
     res.status(500).send({ message: `Error ${error && error.message}` });
