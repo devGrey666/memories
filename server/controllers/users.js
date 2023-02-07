@@ -29,7 +29,13 @@ const signIn = async (req, res) => {
   }
 };
 const signUp = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, firstName, lastName, confirmPassword } = req.body;
+
+  // not valid form data  - return
+  if(!email || !password || !firstName || !lastName || !confirmPassword) {
+    return res.status(400).send({message:"Invalid Form Data"})
+  }
+
   try {
     // check for already existing user
     const existingUser = await User.findOne({ email });
