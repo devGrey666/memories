@@ -9,13 +9,13 @@ const { AuthRouter } = require("./routes/users")
 
 const app = express();
 
-app.use(morgan("combined"))
 app.use(cors());
+app.use(morgan("combined"))
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.json({ extended: true, limit: "30mb" }));
 
 const url = "mongodb://localhost:27017/Blog";
-const port = process.env.PORT ?? 8080
+const port = process.env.PORT ?? 5000
 
 // uses mongoose to connect to mongodb
 mongoose.connect(url, {
@@ -32,9 +32,8 @@ mongoose.connect(url, {
   });
 
 
+app.use("/auth", AuthRouter);
 app.use("/posts", PostRouter);
-app.use("/users", AuthRouter);
-
 app.use((err, req, res, next) => {
   console.log(err.xhr);
   next(err);

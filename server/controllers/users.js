@@ -18,7 +18,7 @@ const signIn = async (req, res) => {
     } else {
       const token = jwt.sign(
         { id: existingUser._id, email: existingUser.email },
-        "test",
+        process.env.TOKEN_KEY,
         { expiresIn: "1h" }
       );
 
@@ -31,28 +31,39 @@ const signIn = async (req, res) => {
 const signUp = async (req, res) => {
   const { email, password } = req.body;
   try {
+    // check for already existing user
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      res.status(409).send({ message: "User Already Exists" });
+      return res.status(409).send({ message: "User Already Exists" });
     }
+
+    // check if password matches or not
     if (password !== req.body.confirmPassword) {
-      res.status(400).send({ message: "Passwords does not match" });
-    } else {
-      const hashedPassword = await bcrypt.hash(password, 12);
-      const user = new User({
+      return res.status(400).send({ message: "Passwords does not match" });
+    }
+
+    // hashing password
+    const hashedPassword = await bcrypt.hash(password, process.env.HASH_SALT_ROUNDS ?? 20);
+
+    // create user document
+    const user = new User({
         name: `${req.body.firstName} ${req.body.lastName}`,
         password: hashedPassword,
         email: req.body.email,
       });
-      const result = await user.save();
-      const token = jwt.sign({ id: result._id, email: result.email }, "test", {
-        expiresIn: "1h",
-      });
 
-      result && res.json({ result: result, token });
-    }
+    const result = await user.save();
+
+    console.log(result ?? "No result found")
+
+    const token = jwt.sign({ id: result._id, email: result.email }, process.env.TOKEN_KEY, {
+      expiresIn: "1h",
+    });
+
+    result && res.json({ result: result, token });
+
   } catch (error) {
-    res.status(500).send({ message: "Internal Server Error" });
+    res.status(500).send({ message: `Error ${error && error.message}` });
   }
 };
 
