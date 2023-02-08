@@ -1,16 +1,14 @@
 const jwt = require("jsonwebtoken")
-const Auth = (req, res, next) => {
-  const token =
-    req.headers.authorization && req.headers.authorization.split(" ")[1];
+const requireAuth = (req, res, next) => {
+  const token = req.headers.authorization && req.headers.authorization.split(" ")[1];
   if (!token) {
-    res.status(400).json({ message: "Bad Credentials" });
-  } else {
-    const decodedData = jwt.verify(token, "test");
-    req.userId = decodedData?.id;
+    return res.status(400).json({ message: "Bad Credentials" });
   }
+  const decodedData = jwt.verify(token, process.env.TOKEN_KEY);
+  req.userId = decodedData?.id;
   next();
 };
 
 module.exports = {
-  Auth
+  requireAuth:requireAuth
 }

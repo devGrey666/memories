@@ -1,33 +1,43 @@
 const User = require("../models/users.js");
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+
 const signIn = async (req, res) => {
-  let isCorrectPassword;
   const { email, password } = req.body;
-  // console.log(email, password);
+
+  // validates form data
+  if(!email || !password){
+    return res.status(400).send({message:"invalid email or password"})
+  }
+
   try {
     const existingUser = await User.findOne({ email });
+
     if (!existingUser) {
-      res.status(404).send({ message: "No record Found" });
-    } else {
-      isCorrectPassword = await bcrypt.compare(password, existingUser.password);
+      return res.status(404).send({ message: "No record Found" });
     }
+
+    // compare hash password
+    let isCorrectPassword = await bcrypt.compare(password, existingUser.password);
 
     if (!isCorrectPassword) {
-      res.status(400).send({ message: "Bad Credentials" });
-    } else {
-      const token = jwt.sign(
-        { id: existingUser._id, email: existingUser.email },
-        process.env.TOKEN_KEY,
-        { expiresIn: "1h" }
-      );
-
-      res.status(200).json({ result: existingUser, token });
+      return res.status(400).send({ message: "Bad Credentials" });
     }
+
+    const {_id, email: userEmail, name} = existingUser
+
+    const token = jwt.sign({ id: _id, email: userEmail },
+        process.env.TOKEN_KEY,
+      { expiresIn: "1h" }
+    );
+
+    res.status(200).json({ result: {id: _id,name:name,email:userEmail}, token });
+
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error" });
   }
 };
+
 const signUp = async (req, res) => {
   const { email, password, firstName, lastName, confirmPassword } = req.body;
 
