@@ -6,12 +6,11 @@ import {createRoot} from "react-dom/client";
 import thunk from "redux-thunk";
 import reducers from "./reducers";
 import "./index.css";
-import theme from "./theme";
-import {ThemeProvider} from "@mui/styles";
+import theme from "./theme.js";
+import { ThemeProvider } from "@mui/styles";
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 const container = document.getElementById("root")
-// console.log("store", store);
 const root = createRoot(container)
 
 root.render(
@@ -19,5 +18,4 @@ root.render(
         <ThemeProvider theme={theme}>
             <App />
         </ThemeProvider>
-
     </Provider>)
