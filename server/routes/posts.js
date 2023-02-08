@@ -1,15 +1,15 @@
 const express = require("express")
 const {getPostsBySearch, getPosts, createPost, updatePost, deletePost, likePost} = require("../controllers/posts.js");
-const { Auth } =  require("../middleware/auth.js");
+const { requireAuth } =  require("../middleware/auth.js");
 const router = express.Router()
 
 router.get("/search", getPostsBySearch);
 router.get("/", getPosts);
-router.post("/", Auth, createPost);
-router.patch("/:id", Auth, updatePost);
+router.post("/", requireAuth, createPost);
+router.patch("/:id", requireAuth, updatePost);
 
-router.patch("/:id/likePost", Auth, likePost);
-router.delete("/:id", Auth, deletePost);
+router.patch("/:id/like-post", requireAuth, likePost);
+router.delete("/:id", requireAuth, deletePost);
 
 module.exports = {
     PostRouter : router
