@@ -7,6 +7,7 @@ import {
   Typography,
   Grid,
   Avatar,
+  TextField, Box
 } from "@mui/material";
 
 import Input from "./Input";
@@ -49,78 +50,108 @@ const Auth = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
   return (
-    <Container component="main" maxWidth="xs">
-      <Paper className={classes.paper} elevation={3}>
-        <Avatar className={classes.avatar}>
+    <Container component="main" maxWidth="sm" className={classes.root}>
+      <Paper className={classes.paper} variant={"outlined"} elevation={1} >
+        <Avatar className={classes.avatar} >
           <LockOutlined />
         </Avatar>
-        <Typography variant="h5">{isSignup ? "Sign Up" : "Sign In"}</Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
+        <Typography variant="subtitle1" component={"div"}><h2>{isSignup ? "Sign Up" : "Sign In"}</h2></Typography>
+        {/*<form  onSubmit={handleSubmit} className={`${classes.form} mui-form`}>*/}
+        <Box
+            component="form"
+            mx={1.5}
+            mt={1.5}
+            sx={{
+              '& .MuiTextField-root': { mt: 1.5,backgroundColor:"#fff" },
+            }}
+            noValidate
+            autoComplete="off"
+        >
             {isSignup && (
-              <>
-                <Input
+                <>
+                <TextField
                   name="firstName"
                   label="First Name"
                   autoFocus={true}
                   handleChange={handleChange}
                   defaultValue={formData.firstName}
-                  half
-                ></Input>
+                  size={"small"}
+                  fullWidth
+                ></TextField>
 
-                <Input
+                <TextField
+                    className={classes.mt20}
                   name="lastName"
                   label="Last Name"
                   handleChange={handleChange}
                   value={formData.lastName}
-                  half
-                ></Input>
-              </>
+                  size={"small"}
+                  fullWidth
+                ></TextField>
+                </>
             )}
-            <Input
+            <>
+            <TextField
+                className={classes.input}
               name="email"
               label="Email"
               handleChange={handleChange}
               type="email"
               defaultValue={formData.email}
-            ></Input>
-            <Input
+              size={"small"}
+              fullWidth
+            ></TextField>
+            <TextField
+                className={classes.input}
               name="password"
               label="password"
               handleChange={handleChange}
               handleShowPassword={handleShowPassword}
               type={showPassword ? "text" : "password"}
               defaultValue={formData.password}
-            ></Input>
+              size={"small"}
+              fullWidth
+            ></TextField>
             {isSignup && (
-              <Input
+              <TextField
+                  className={classes.input}
                 name="confirmPassword"
                 label="Confirm Password"
                 handleChange={handleChange}
                 type="password"
                 defaultValue={formData.confirmPassword}
-              ></Input>
+                fullWidth
+                size={"small"}
+              ></TextField>
             )}
-          </Grid>
+            </>
+
+          <Box component={"div"} style={{textAlign:"center"}} sx={{
+            '& .MuiButton-root': { mt: 2.5 ,width:"50%",backgroundColor:"#f79918" ,
+              borderRadius:"7px" ,'&:hover':{backgroundColor:"#fff",color:"#f79918"}},
+          }}>
           <Button
             type="submit"
             variant="contained"
-
             color="primary"
             className={classes.submit}
           >
-            {isSignup ? "Sign Up" : "Sign In"}
+            <h4>{isSignup ? "Sign Up" : "Sign In"}</h4>
           </Button>
-          <Grid container justifyContent="flex-end">
+          </Box>
+          <Grid container justifyContent="center" mt={2.5} mb={1.5}>
             <Grid item>
-              <Button onClick={switchMode}>
-                {isSignup
-                  ? "Already have an account? Sign In"
-                  : "Do not have an account? Sign Up"}
+              <Button onClick={switchMode} style={{color:"#222222"}}>
+                <h5>
+                  {isSignup
+                      ? "Sign In"
+                      : "Register Now"}
+                </h5>
               </Button>
             </Grid>
           </Grid>
-        </form>
+        {/*</form>*/}
+          </Box>
       </Paper>
     </Container>
   );

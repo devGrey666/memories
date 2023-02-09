@@ -32,10 +32,21 @@ const theme = createTheme({
         },
     },
     components: {
+
+        MuiAppBar:{
+            styleOverrides: {
+                root: {
+                    boxShadow: "none !important",
+                    fontFamily:fontFamily,
+                    backgroundColor:"#000"
+                },
+            },
+        },
+
         MuiButton: {
             styleOverrides: {
                 root: {
-                    textTransform: "uppercase",
+                    textTransform: "capitalize",
                     fontFamily:fontFamily
                 },
             },
@@ -66,23 +77,23 @@ const theme = createTheme({
     typography: {
         h1: {
             fontFamily: fontFamily,
-            fontSize: "40px",
+            fontSize: "40px !important",
             fontWeight: `${fontWeights.bold}`,
-            "@media (max-width:1200px)": {
-                fontSize: "60px",
-                lineHeight: "130%",
-            },
-            "@media (max-width:900px)": {
-                fontSize: "48px",
-                lineHeight: "130%",
-            },
-            "@media (max-width:600px)": {
-                fontSize: "32px",
-            },
-
-            "@media (max-width:400px)": {
-                fontSize: "28px",
-            },
+            // "@media (max-width:1200px)": {
+            //     fontSize: "60px",
+            //     lineHeight: "130%",
+            // },
+            // "@media (max-width:900px)": {
+            //     fontSize: "48px",
+            //     lineHeight: "130%",
+            // },
+            // "@media (max-width:600px)": {
+            //     fontSize: "32px",
+            // },
+            //
+            // "@media (max-width:400px)": {
+            //     fontSize: "28px",
+            // },
         },
         h2: {
             fontFamily: fontFamily,
