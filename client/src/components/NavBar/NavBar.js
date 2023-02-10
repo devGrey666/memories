@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useStyles from "./styles";
-import { AppBar, Typography, Button, Avatar,Box,Toolbar,IconButton } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Typography, Button, Box,Toolbar } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import memoriesLogo from "../../images/memories-Logo.png";
-import memoriesText from "../../images/memories-Text.png";
+import { useNavigate, useLocation } from "react-router-dom";
 import decode from "jwt-decode";
 const NavBar = () => {
   const classes = useStyles();
@@ -49,13 +46,24 @@ const NavBar = () => {
               </h1>
             </Typography>
 
-              <Button color="inherit" size={"large"} href={"/sign-in"}>
-                <Typography variant={"subtitle1"} component={"div"}>
-                  <p>
-                    Login
-                  </p>
-                </Typography>
-              </Button>
+
+            {
+             user === null ? <Button color="inherit" size={"large"} href={"/sign-in"}>
+               <Typography variant={"subtitle1"} component={"div"}>
+                 <p>
+                   Login
+                 </p>
+               </Typography>
+             </Button> :
+                 <Button color="inherit" onClick={logOut} size={"large"} href={"/sign-in"}>
+                   <Typography variant={"subtitle1"} component={"div"}>
+                     <p>
+                       Logout
+                     </p>
+                   </Typography>
+                 </Button>
+            }
+
 
           </Toolbar>
         </AppBar>
