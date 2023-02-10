@@ -21,6 +21,6 @@ export const getPostsBySearch = (searchQuery) =>
   );
 //  Users apis
 
-export const signIn = (formData) => API.post("/users/signin", formData);
+export const signIn = (formData) => API.post("/auth/signin", formData);
 
-export const signUp = (formData) => API.post("/users/signup", formData);
+export const signUp = (formData) => API.post("/auth/signup", formData);
