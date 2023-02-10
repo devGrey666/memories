@@ -2,3 +2,25 @@ body {
   background-color: #fff;
 }
 
+.react-file input{
+  font-size: large;
+  font-weight: normal;
+  text-align: center;
+  font-family: Poppins , sans serif;
+}
+/**
+styles for button
+ */
+.react-file input::file-selector-button{
+  border: 2px solid #E5E4E2;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  background-color: white;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #E5E4E2;
+  border: 2px solid white;
+}

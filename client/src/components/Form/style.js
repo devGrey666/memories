@@ -2,8 +2,11 @@ import { makeStyles } from "@mui/styles";
 
 export default makeStyles((theme) => ({
   root: {
+      '& .MuiPaper-root':{
+        backgroundColor:"#f8f9fa",
+      },
     "& .MuiTextField-root": {
-      margin: theme.spacing(1),
+      marginTop: theme.spacing(2),
     },
   },
   paper: {

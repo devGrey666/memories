@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Paper, TextField, Button, Typography } from "@mui/material";
+import { Paper, TextField, Button, Typography,Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost, updatePost } from "../../actions/posts";
 import FileBase from "react-file-base64";
@@ -56,11 +56,15 @@ const Post = ({ currentId, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   if (!user?.result.name) {
     return (
-      <Paper className={classes.paper}>
-        <Typography varaint="h6">
-          Please Sign in to Create Your memories and like Others
-        </Typography>
+        <div className={classes.root}>
+      <Paper className={classes.paper} >
+        <Typography varaint="h6" component={"div"}>
+          <p>
+            Please Sign in to Create Your memories and like Others
+          </p>
+          </Typography>
       </Paper>
+        </div>
     );
   }
 
@@ -73,40 +77,47 @@ const Post = ({ currentId, setCurrentId }) => {
           noValidate
           onSubmit={handleSubmit}
         >
-          <Typography variant="h6" component="h2">
-            Creating A Memory
+          <Typography variant="h6" component="div">
+            <h4>Create Memory</h4>
           </Typography>
 
           <TextField
             label="Title"
             name="title"
             variant="outlined"
-
+            fullWidth
+            size={"small"}
             onChange={handleChange}
             value={postData.title}
             InputLabelProps={{ shrink: true }}
           />
           <TextField
+              label="Tags"
+              placeholder="Tags(comma Separated)"
+              name="tags"
+              variant="outlined"
+              fullWidth
+              size={"small"}
+              onChange={handleChange}
+              value={postData.tags}
+              InputLabelProps={{ shrink: true }}
+          />
+          <TextField
             label="Message"
             name="message"
             variant="outlined"
-
+            multiline={true}
+            minRows={5}
+            fullWidth
+            size={"small"}
             onChange={handleChange}
             value={postData.message}
             InputLabelProps={{ shrink: true }}
           />
-          <TextField
-            label="Tags"
-            placeholder="Tags(comma Separated)"
-            name="tags"
-            variant="outlined"
 
-            onChange={handleChange}
-            value={postData.tags}
-            InputLabelProps={{ shrink: true }}
-          />
-          <div className={classes.fileInput}>
+          <div className={`${classes.fileInput} react-file`}>
             <FileBase
+                id={"inputTag"}
               type="file"
               multiple={false}
               onDone={({ base64 }) => {
@@ -114,6 +125,10 @@ const Post = ({ currentId, setCurrentId }) => {
               }}
             ></FileBase>
           </div>
+          <Box style={{width:"100%" ,textAlign:"center"}} component={"div"} sx={{
+            '& .MuiButton-root': { mt:2,width:"50%",backgroundColor:"#f79918" ,
+              borderRadius:"7px" ,'&:hover':{backgroundColor:"#fff",color:"#f79918"}},
+          }}>
           <Button
             type="submit"
             variant="contained"
@@ -124,15 +139,16 @@ const Post = ({ currentId, setCurrentId }) => {
           >
             Submit
           </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
+          </Box>
+          {/*<Button*/}
+          {/*  variant="contained"*/}
+          {/*  color="secondary"*/}
+          {/*  size="small"*/}
 
-            onClick={clear}
-          >
-            Clear
-          </Button>
+          {/*  onClick={clear}*/}
+          {/*>*/}
+          {/*  Clear*/}
+          {/*</Button>*/}
         </form>
       </Paper>
     </div>

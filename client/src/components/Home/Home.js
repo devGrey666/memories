@@ -69,40 +69,40 @@ function Home() {
           <Posts setCurrentId={setCurrentId}></Posts>
         </Grid>
         <Grid item xs={12} md={3}>
-          <AppBar
-            className={classes.appBarSearch}
-            position="static"
-            color="inherit"
-          >
-            <TextField
-              name="search"
-              label="search Memories"
-              value={search}
-              variant="outlined"
-              onKeyDown={handleKeyPress}
+          {/*<AppBar*/}
+          {/*  className={classes.appBarSearch}*/}
+          {/*  position="static"*/}
+          {/*  color="inherit"*/}
+          {/*>*/}
+          {/*  <TextField*/}
+          {/*    name="search"*/}
+          {/*    label="search Memories"*/}
+          {/*    value={search}*/}
+          {/*    variant="outlined"*/}
+          {/*    onKeyDown={handleKeyPress}*/}
 
-              onChange={(event) => setSearch(event.target.value)}
-            />
-            <Chip
-              style={{
-                margin: "10px 0px",
-              }}
-              onDelete={handleDelete}
-              onAdd={handleAdd}
-              label="Search Tags"
+          {/*    onChange={(event) => setSearch(event.target.value)}*/}
+          {/*  />*/}
+          {/*  <Chip*/}
+          {/*    style={{*/}
+          {/*      margin: "10px 0px",*/}
+          {/*    }}*/}
+          {/*    onDelete={handleDelete}*/}
+          {/*    onAdd={handleAdd}*/}
+          {/*    label="Search Tags"*/}
 
-              value={tags}
-              variant="outlined"
-            />
-            <Button
-              variant="contained"
-              onClick={searchPost}
-              color="primary"
-              className={classes.searchButton}
-            >
-              Search
-            </Button>
-          </AppBar>
+          {/*    value={tags}*/}
+          {/*    variant="outlined"*/}
+          {/*  />*/}
+          {/*  <Button*/}
+          {/*    variant="contained"*/}
+          {/*    onClick={searchPost}*/}
+          {/*    color="primary"*/}
+          {/*    className={classes.searchButton}*/}
+          {/*  >*/}
+          {/*    Search*/}
+          {/*  </Button>*/}
+          {/*</AppBar>*/}
           <Form currentId={currentId} setCurrentId={setCurrentId}></Form>
           {!searchQuery && !tags.length && (
             <Paper elevation={6} className={classes.pagination}>
