@@ -1,15 +1,22 @@
 import { makeStyles } from "@mui/styles";
 
 export default makeStyles({
+  root:{
+    '& .MuiCard-root':{
+      boxShadow:"none",
+      padding:"0"
+    },
+    '& .MuiCardContent-root':{
+      padding:"0"
+    }
+  },
   media: {
-    height: 0,
-    paddingTop: "56.25%",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    backgroundBlendMode: "darken",
+    cursor:"pointer",
+    paddingTop: "60%",
+    borderRadius:"7px",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
   },
-  border: {
-    border: "solid",
-  },
+
   fullHeightCard: {
     height: "100%",
   },
@@ -17,6 +24,7 @@ export default makeStyles({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+    boxShadow:"none",
     borderRadius: "15px",
     height: "100%",
     position: "relative",
@@ -37,15 +45,13 @@ export default makeStyles({
     display: "flex",
   },
   details: {
+    marginTop:"1.4em",
     display: "flex",
     justifyContent: "space-between",
-    margin: "20px",
   },
   title: {
-    padding: "0 5px",
   },
   cardActions: {
-    padding: "0 16px 8px 16px",
     display: "flex",
     justifyContent: "space-between",
   },

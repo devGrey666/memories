@@ -26,20 +26,21 @@ const Post = ({ post, setCurrentId }) => {
   };
   console.log("THis is post sub");
   return (
-    <Card className={classes.card} raised elevation={6}>
+      <div className={classes.root}>
+    <Card className={classes.card} >
       <CardMedia
         className={classes.media}
         image={post.selectedFile}
         title={post.title}
       />
-      <div className={classes.overlay}>
-        <Typography variant="h6">
-          {post.name && post.name.toUpperCase()}
-        </Typography>
-        <Typography variant="body2">
-          {moment(post.createdAt).fromNow()}
-        </Typography>
-      </div>
+      {/*<div className={classes.overlay}>*/}
+      {/*  <Typography variant="h6">*/}
+      {/*    {post.name && post.name.toUpperCase()}*/}
+      {/*  </Typography>*/}
+      {/*  <Typography variant="body2">*/}
+      {/*    {moment(post.createdAt).fromNow()}*/}
+      {/*  </Typography>*/}
+      {/*</div>*/}
       {user?.result?._id === post.creator && (
         <div className={classes.overlay2}>
           <Button
@@ -55,16 +56,25 @@ const Post = ({ post, setCurrentId }) => {
       )}
 
       <div className={classes.details}>
-        <Typography color="textSecondary" variant="body2">
-          {post.tags ? post.tags.map((tag) => ` #${tag}`) : ""}
+        <Typography  variant={"subtitle2"}>
+          <h4>
+            {post.tags ? post.tags.map((tag) => `${tag.toUpperCase()} `) : ""}
+          </h4>
+          {/*<p>*/}
+          {/*  {moment(post.createdAt).fromNow()}*/}
+          {/*</p>*/}
         </Typography>
       </div>
       <CardContent>
-        <Typography variant="h6" component="h2" gutterBottom>
-          {post.title}
-        </Typography>
+        <Typography variant="body1" component="h2" gutterBottom>
+          <h4>
+            {post.title}
+          </h4>
+          </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          {post.message}
+          <h4>
+            {post.message}
+          </h4>
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
@@ -93,6 +103,7 @@ const Post = ({ post, setCurrentId }) => {
         )}
       </CardActions>
     </Card>
+      </div>
   );
 };
 
