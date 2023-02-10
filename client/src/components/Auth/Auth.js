@@ -10,7 +10,6 @@ import {
   TextField, Box
 } from "@mui/material";
 
-import Input from "./Input";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signUp, signIn } from "../../actions/auth.js";
@@ -30,6 +29,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleChange = (e) => {
+    console.log(e.target.name)
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
@@ -51,7 +51,7 @@ const Auth = () => {
   };
   return (
     <Container component="main" maxWidth="sm" className={classes.root}>
-      <Paper className={classes.paper} variant={"outlined"} elevation={1} >
+      <Paper className={classes.paper} variant={"outlined"}  >
         <Avatar className={classes.avatar} >
           <LockOutlined />
         </Avatar>
@@ -64,6 +64,7 @@ const Auth = () => {
             sx={{
               '& .MuiTextField-root': { mt: 1.5,backgroundColor:"#fff" },
             }}
+            onSubmit={handleSubmit}
             noValidate
             autoComplete="off"
         >
@@ -73,17 +74,18 @@ const Auth = () => {
                   name="firstName"
                   label="First Name"
                   autoFocus={true}
-                  handleChange={handleChange}
+                  onChange={handleChange}
                   defaultValue={formData.firstName}
+                  value={formData.firstName}
                   size={"small"}
                   fullWidth
                 ></TextField>
 
                 <TextField
-                    className={classes.mt20}
                   name="lastName"
                   label="Last Name"
-                  handleChange={handleChange}
+                  onChange={handleChange}
+                  defaultValue={formData.lastName}
                   value={formData.lastName}
                   size={"small"}
                   fullWidth
@@ -95,7 +97,7 @@ const Auth = () => {
                 className={classes.input}
               name="email"
               label="Email"
-              handleChange={handleChange}
+              onChange={handleChange}
               type="email"
               defaultValue={formData.email}
               size={"small"}
@@ -105,7 +107,7 @@ const Auth = () => {
                 className={classes.input}
               name="password"
               label="password"
-              handleChange={handleChange}
+              onChange={handleChange}
               handleShowPassword={handleShowPassword}
               type={showPassword ? "text" : "password"}
               defaultValue={formData.password}
@@ -117,7 +119,7 @@ const Auth = () => {
                   className={classes.input}
                 name="confirmPassword"
                 label="Confirm Password"
-                handleChange={handleChange}
+                onChange={handleChange}
                 type="password"
                 defaultValue={formData.confirmPassword}
                 fullWidth
