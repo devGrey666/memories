@@ -21,6 +21,22 @@ const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
+
+  const getFormattedTag = (tagsArray)=>{
+    if(tagsArray.length === 0 ){
+      return
+    }
+    const capitalizedArray = tagsArray.map((element) => {
+      if(element.length === 0){
+        return
+      }
+      element = element.trim()
+      return element[0].toUpperCase() + element.substr(1).toLowerCase()
+    })
+
+    return capitalizedArray.join(", ")
+  }
+
   const openPost = () => {
     navigate(`/posts/${post._id}`);
   };
@@ -58,7 +74,7 @@ const Post = ({ post, setCurrentId }) => {
       <div className={classes.details}>
         <Typography  variant={"subtitle2"}>
           <h4>
-            {post.tags ? post.tags.map((tag) => `${tag.toUpperCase()} `) : ""}
+            {post.tags ? getFormattedTag(post.tags) : ""}
           </h4>
           {/*<p>*/}
           {/*  {moment(post.createdAt).fromNow()}*/}
@@ -72,9 +88,9 @@ const Post = ({ post, setCurrentId }) => {
           </h4>
           </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          <h4>
+          <p>
             {post.message}
-          </h4>
+          </p>
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
@@ -86,16 +102,16 @@ const Post = ({ post, setCurrentId }) => {
           }}
           color="primary"
         >
-          {post.likes.length}&nbsp; Like&nbsp;
-          <ThumbUpAltIcon fontSize="small"></ThumbUpAltIcon>
+
+          <ThumbUpAltIcon fontSize="small"></ThumbUpAltIcon>&nbsp;{post.likes.length}
         </Button>
-        {user?.result?._id === post.creator && (
+        {user?.result?.id === post.creator && (
           <Button
             size="small"
             onClick={() => {
               dispatch(deletePost(post._id));
             }}
-            color="primary"
+            color="secondary"
           >
             Delete
             <DeleteIcon fontSize="small" color="secondary"></DeleteIcon>

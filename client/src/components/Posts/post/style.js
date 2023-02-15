@@ -7,7 +7,8 @@ export default makeStyles({
       padding:"0"
     },
     '& .MuiCardContent-root':{
-      padding:"0"
+      padding:"0",
+      marginTop:"8px"
     }
   },
   media: {
@@ -53,6 +54,7 @@ export default makeStyles({
   },
   cardActions: {
     display: "flex",
+    alignItems:"left",
     justifyContent: "space-between",
   },
 });
